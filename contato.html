@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="images/logo.png" alt="Logo do Fórmula Certa PDV" class="logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Quem Somos</a></li> <!-- Alterado para "Quem Somos" -->
+                <li><a href="portfolio.html">Portfólio</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="contact-page">
+        <h1>Entre em Contato</h1>
+        <div class="contact-container">
+            <!-- Formulário de Contato -->
+            <form class="contact-form" action="https://formspree.io/f/mldlelbz" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Nome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="E-mail" required class="half-field">
+                    <input type="tel" name="phone" placeholder="Telefone" required class="half-field">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="5" placeholder="Mensagem" required></textarea>
+                </div>
+                <button type="submit">ENVIAR</button>
+                <input type="hidden" name="_subject" value="Nova mensagem do site Fórmula Certa">
+            </form>
+
+            
+        </div>
+</main>
+    <footer class="footer">
+        <p>© 2025 Fórmula Certa. Todos os direitos reservados.</p>
+    </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.contact-form');
+        if(form) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = new FormData(form);
+            fetch(form.action, {
+              method: 'POST',
+              body: data,
+              headers: { 'Accept': 'application/json' }
+            }).then(response => {
+              if (response.ok) {
+                form.reset();
+                if(!document.getElementById('success-msg')) {
+                  const msg = document.createElement('div');
+                  msg.id = 'success-msg';
+                  msg.textContent = 'Mensagem enviada com sucesso!';
+                  msg.style.color = '#4BB543';
+                  msg.style.margin = '15px 0';
+                  msg.style.fontWeight = 'bold';
+                  form.parentNode.insertBefore(msg, form.nextSibling);
+                  setTimeout(() => { msg.remove(); }, 5000);
+                }
+              } else {
+                alert('Ocorreu um erro ao enviar. Tente novamente.');
+              }
+            }).catch(() => {
+              alert('Ocorreu um erro ao enviar. Tente novamente.');
+            });
+          });
+        }
+      });
+    </script>
+</body>
+</html>
